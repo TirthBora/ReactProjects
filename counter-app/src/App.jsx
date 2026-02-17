@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+import CounterDisplay from "./components/CounterDisplay";
+import CounterButtons from "./components/CounterButtons";
+import StepInput from "./components/StepInput";
+import ThemeToggle from "./components/ThemeToggle";
+
 function App() {
   const [count, setCount] = useState(() => {
     return Number(localStorage.getItem("count")) || 0;
@@ -25,39 +30,21 @@ function App() {
       <div className="container">
         <h1>Advanced Counter</h1>
 
-        <h2>{count}</h2>
+        <CounterDisplay count={count} />
 
-        <input
-          type="number"
-          value={step}
-          onChange={(e) => setStep(Number(e.target.value))}
-          className="input"
+        <StepInput step={step} setStep={setStep} />
+
+        <CounterButtons
+          count={count}
+          step={step}
+          setCount={setCount}
         />
 
-        <br />
-
-        <button onClick={() => setCount(count + step)}>
-          Increase
-        </button>
-
-        <button
-          onClick={() => {
-            if (count > 0) setCount(count - step);
-          }}
-        >
-          Decrease
-        </button>
-
-        <button onClick={() => setCount(0)}>
-          Reset
-        </button>
-
-        <button onClick={() => setDark(!dark)}>
-          {dark ? "Light Mode ☀️" : "Dark Mode 🌙"}
-        </button>
+        <ThemeToggle dark={dark} setDark={setDark} />
       </div>
     </div>
   );
 }
 
 export default App;
+
