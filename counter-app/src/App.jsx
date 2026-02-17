@@ -14,8 +14,27 @@ function App() {
   const [step, setStep] = useState(1);
 
   const [dark, setDark] = useState(() => {
-    return JSON.parse(localStorage.getItem("dark")) ?? true;
+    const saved = localStorage.getItem("dark");
+    return saved !== null ? JSON.parse(saved) : true;
   });
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "ArrowUp") {
+        setCount((prev) => prev + step);
+      }
+
+      if (e.key === "ArrowDown") {
+        setCount((prev) => (prev > 0 ? prev - step : 0));
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [step]);
 
   useEffect(() => {
     localStorage.setItem("count", count);
@@ -47,4 +66,3 @@ function App() {
 }
 
 export default App;
-

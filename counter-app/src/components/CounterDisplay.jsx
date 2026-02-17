@@ -1,9 +1,5 @@
 function CounterDisplay({ count }) {
-  return (
-    <div className="counter-display">
-      <p>{count}</p>
-    </div>
-  );
+  return <h2>{count}</h2>;
 }
 
 export default CounterDisplay;
